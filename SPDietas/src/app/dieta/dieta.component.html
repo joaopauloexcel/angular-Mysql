@@ -1,0 +1,88 @@
+<div class="row d-flex justify-content-center">
+  <button (click)="novo()" type="button" class="btn btn-primary" data-toggle="modal" data-target=".modal">Nova Dieta</button>
+</div>
+<br>
+<table *ngIf="dietas.length > 0" class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Cliente</th>
+      <th scope="col">Data</th>
+      <th scope="col">Descrição</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dieta of dietas">
+      <td>
+        <a *ngFor="let cliente of clientes">
+          <span *ngIf="dieta.id_cliente == cliente.id">{{cliente.nome}}</span>
+        </a>
+      </td>
+      <td>
+        <span>{{dieta.data | date: 'dd/MM/yyyy'}}</span>
+      </td>
+      <td>
+        <span>{{dieta.descricao}}</span>
+      </td>
+      <td>
+          <button class="btn btn-secondary" (click)="alterar(dieta)" data-toggle="modal" data-target=".modal">Alterar</button>
+      </td>
+      <td>
+          <button  class="btn btn-danger" (click)="alterar(dieta)" data-toggle="modal" data-target=".excluir" >Excluir</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- Modal Alterar -->
+<div class="modal fade modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Dieta</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="cliente">Cliente:</label>
+              <select [(ngModel)]="dieta.id_cliente" name="cliente" class="form-control">
+                <option  *ngFor="let cliente of clientes" name="cliente" value="{{cliente.id}}">{{cliente.nome}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+                <label for="data">Data:</label>
+                <input type="date" class="form-control" placeholder="Data" name="data" [(ngModel)]="dieta.data"/>
+            </div>
+            <div class="form-group">
+                <label for="descricao">Descrição:</label>
+                <textarea class="form-control" type="text" placeholder="Descrição" name="descricao" [(ngModel)]="dieta.descricao"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+          <button (click)="salvar()" type="button" data-dismiss="modal" class="btn btn-success">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <!-- Modal Excluir -->
+  <div class="modal fade excluir" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          Realmente deseja excluir a dieta?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button (click)="excluir()" type="button" class="btn btn-danger" data-dismiss="modal">Excluir</button>
+        </div>
+      </div>
+    </div>
+  </div>

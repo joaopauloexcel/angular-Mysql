@@ -1,0 +1,101 @@
+<div class="row d-flex justify-content-center">
+  <button (click)="novo()" type="button" class="btn btn-primary" data-toggle="modal" data-target=".modal">Novo Cliente</button>
+</div>
+<br>
+<table *ngIf="clientes.length > 0" class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Nome</th>
+      <th scope="col">Sexo</th>
+      <th scope="col">Data de Nascimento</th>
+      <th scope="col">Cidade</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cliente of clientes">
+      <th>
+        <span>{{cliente.nome}}</span>
+      </th>
+      <td>
+        <span>{{cliente.sexo}}</span>
+      </td>
+      <td>
+        <span>{{cliente.nascimento | date: 'dd/MM/yyyy'}}</span>
+      </td>
+      <td>
+        <span>{{cliente.cidade}}</span>
+      </td>
+      <td>
+          <button class="btn btn-secondary" (click)="alterar(cliente)" data-toggle="modal" data-target=".modal">Alterar</button>
+      </td>
+      <td>
+          <button  class="btn btn-danger" (click)="alterar(cliente)" data-toggle="modal" data-target=".excluir" >Excluir</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Modal Alterar -->
+<div class="modal fade modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cliente</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+              <label for="nome">Nome:</label>
+              <input type="text" class="form-control" placeholder="Nome" name="nome" required [(ngModel)]="cliente.nome"/>
+          </div>
+          <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" id="Masculino" class="form-check-input" type="radio" name="sexo" [(ngModel)]="cliente.sexo" value="Masculino">
+              <label class="form-check-label" id="Masculino">
+                Masculino
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="Feminino" class="form-check-input" type="radio" name="sexo" [(ngModel)]="cliente.sexo" value="Feminino">
+              <label class="form-check-label" id="Feminino">
+                Feminino
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+              <label for="nascimento">Data Nascimento:</label>
+              <input type="date" class="form-control" placeholder="Data de Nascimento" name="nascimento" required [(ngModel)]="cliente.nascimento"/>
+          </div>
+          <div class="form-group">
+              <label for="cidade">Cidade:</label>
+              <input class="form-control" type="text" placeholder="Cidade" name="cidade" required [(ngModel)]="cliente.cidade"/>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+        <button (click)="salvar()" type="button" data-dismiss="modal" class="btn btn-success">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<!-- Modal Excluir -->
+<div class="modal fade excluir" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        Realmente deseja excluir o cliente?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button (click)="excluir()" type="button" class="btn btn-danger" data-dismiss="modal">Excluir</button>
+      </div>
+    </div>
+  </div>
+</div>

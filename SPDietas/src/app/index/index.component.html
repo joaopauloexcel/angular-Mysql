@@ -1,0 +1,39 @@
+<div class="row d-flex justify-content-center">
+    <h3>DashBoard - Visão Geral</h3>
+</div>
+<br>
+<div *ngIf="!mostrar" class="row d-flex justify-content-center">
+  <button (click)="carregaDietas()" type="button" class="btn btn-primary" data-toggle="modal" data-target=".modal">Exibir</button>
+  <br>
+</div>
+<br>
+<div *ngIf="mostrar" class="row d-flex justify-content-center">
+  <div style="width:600px; display: block;">
+    <canvas baseChart
+      [datasets]="barChartData"
+      [labels]="barChartLabels"
+      [options]="barChartOptions"
+      [plugins]="barChartPlugins"
+      [legend]="barChartLegend"
+      [chartType]="barChartType">
+    </canvas>
+  </div>
+</div>
+<br>
+<br>
+<div *ngIf="mostrar" class="row d-flex justify-content-center">
+  <div style="width:500px; display: block;">
+    <div class="chart">
+      <canvas baseChart
+        [data]="pieChartData"
+        [labels]="pieChartLabels"
+        [chartType]="pieChartType"
+        [options]="pieChartOptions"
+        [plugins]="pieChartPlugins"
+        [colors]="pieChartColors"
+        [legend]="pieChartLegend">
+      </canvas>
+    </div>
+  </div>
+</div>
+<br>
